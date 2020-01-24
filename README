@@ -1,0 +1,21 @@
+* Check Authorized Users
+* Secure passwords
+* Enable firewalls
+* Fix any known browser issues
+* Disable unnessecary services
+* Install antivirus
+* Look for any violating media
+* Disable root login
+* Disable Guest
+* Check User Privelege level
+* Open update channels
+* Update the system
+* Add firewall rules
+* Change password min and max age
+* Change password length requirement
+* Account Lockout Policy
+* Check Ports
+* Change Default Browser
+* Remove Unnessecary Programs
+* Disable ip forwarding & ip spoofing
+* Upgrade kernel and bash if required
