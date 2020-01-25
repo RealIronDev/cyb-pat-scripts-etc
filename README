@@ -5,17 +5,65 @@
 * Disable unnessecary services
 * Install antivirus
 * Look for any violating media
+ - cd /home
+ - sudo ls -Ra *
 * Disable root login
 * Disable Guest
+ - /etc/lightdm/lightdm.conf
 * Check User Privelege level
 * Open update channels
 * Update the system
 * Add firewall rules
 * Change password min and max age
+ - /etc/login.defs
 * Change password length requirement
+ - /etc/pam.d/common-password
+ - minlen=8 remember=5
 * Account Lockout Policy
+ - /etc/pam.d/common-auth
+ - deny=5 unlock_time=1800
 * Check Ports
+ - sudo ss -ln
+ - sudo lsof -i :$port
 * Change Default Browser
 * Remove Unnessecary Programs
 * Disable ip forwarding & ip spoofing
 * Upgrade kernel and bash if required
+* /tmp as partition
+ - mount | grep /tmp
+ - systemctl enable tmp.mount
+* Disable CD mounting (UDF)
+ - /etc/modprobe.d/CIS.conf
+ - install udf /bin/true
+* Disable automount
+ - ls /etc/rc*.d | grep autofs  //no S*
+ - update-rc.d autofs disable
+* Disable rsh
+ - grep ^shell /etc/inetd.conf
+ - grep ^login /etc/inetd.conf
+ - grep ^exec /etc/inetd.conf
+ - apt-get purge rsh-client rsh-reload-client
+* Disable Print System (if needed)
+ - systemctl disable cups
+* Configure NTP time correctly
+* Disable NFS and RPC (if enabled)
+ - ls /etc/rc*.d | grep rpcbind
+ - ls /etc/rc*.d | grep nfs-kernel-server
+ - update-rc.d rpcbind disable
+ - update-rc.d nfs-kernel-server disable
+* Disable DNS (if enabled)
+ - systemctl disable bind9
+* Disable FTP (if enabled)
+* Disable HTTP services
+ - nginx & apache (maybe tomcat?)
+* Disable IMAP and POP
+* Disable Samba
+* Disable IP forwarding (leave if 0)
+ - /sbin/sysctl net.ipv4.ip_forward
+ - edit /etc/sysctl.conf
+ - /sbin/sysctl -w net.ipv4.ip_forward=0
+ - /sbin/sysctl -w net.ipv4.route.flush=1
+* Enable logging of Suspicious Packets
+ - /sbin/sysctl net.ipv4.conf.all.log_martians
+ - /sbin/sysctl net.ipv4.conf.default.log_martians
+ Enable Syn P
