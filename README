@@ -8,6 +8,9 @@
  - cd /home
  - sudo ls -Ra *
 * Disable root login
+* Secure SSH
+ - MaxAuthTries
+ - PermitUserEnvironment no
 * Disable Guest
  - /etc/lightdm/lightdm.conf
 * Check User Privelege level
@@ -18,13 +21,15 @@
  - /etc/login.defs
 * Change password length requirement
  - /etc/pam.d/common-password
- - minlen=8 remember=5
+ - minlen=8 remember=5 (at EOL pam_unix)
 * Account Lockout Policy
  - /etc/pam.d/common-auth
- - deny=5 unlock_time=1800
+ - deny=5 unlock_time=1800 (at EOL of pam_tally2)
 * Check Ports
  - sudo ss -ln
  - sudo lsof -i :$port
+ - dpkg -S $location
+ - rm $location (if needed)
 * Change Default Browser
 * Remove Unnessecary Programs
 * Disable ip forwarding & ip spoofing
@@ -63,7 +68,14 @@
  - edit /etc/sysctl.conf
  - /sbin/sysctl -w net.ipv4.ip_forward=0
  - /sbin/sysctl -w net.ipv4.route.flush=1
+   - ALT: echo 0 | sudo tee /proc/sys/net/ipv4/ip_forward
 * Enable logging of Suspicious Packets
  - /sbin/sysctl net.ipv4.conf.all.log_martians
  - /sbin/sysctl net.ipv4.conf.default.log_martians
- Enable Syn P
+* Enable Syn Cookie Protection
+ - sysctl -n net.ipv4.tcp_syncookies
+* Disable IPv6
+ - echo "net.ipv6.conf.all.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.conf
+* Prevent IP spoofing
+ - echo "nospoof on" | sudo tee -a /etc/host.conf
+ 
